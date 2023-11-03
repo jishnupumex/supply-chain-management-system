@@ -1,2 +1,3 @@
-# supply-chain-management-system
-Supply-chain-management-system using Java Spring boot, Apache Kafka, ReactJS
+# Supply-Chain-Management-System
+
+Frontend using React JS
