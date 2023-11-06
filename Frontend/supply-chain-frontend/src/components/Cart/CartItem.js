@@ -6,7 +6,7 @@ import { changeQty } from "../../constants/api";
 
 const CartItem = ({cartItem,image}) => {
   const dispatch=useDispatch()
-  const apiUrl="http://192.168.1.142:8082/changecount"
+  const apiUrl="http://192.168.1.142:8082/user-cart/update-prod"
   const increament=(prodId)=>{
     changeQty(apiUrl,cartItem.prodId,1)
     dispatch(increaseQuantity({prodId}))
@@ -21,7 +21,7 @@ const CartItem = ({cartItem,image}) => {
       <img
         src={image}
         alt="product-image"
-        className="w-full rounded-lg sm:w-40"
+        className="w-1/2 rounded-lg sm:w-40"
       />
       <div className="sm:ml-4 sm:flex sm:w-full sm:justify-between">
         <div className="mt-5 sm:mt-0">

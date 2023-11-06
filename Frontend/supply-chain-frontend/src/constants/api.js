@@ -3,14 +3,14 @@ import { setCart } from "../redux/productSlice";
 
 
 
-export const changeQty=(apiUrl,productId,quantity)=>{
+export const changeQty=(apiUrl,prodId,prodQty)=>{
   
 fetch(apiUrl, {
-  method: 'PATCH',
+  method: 'PUT',
   headers: {
     'Content-Type': 'application/json',
   },
-  body: JSON.stringify({ productId, quantity }), // Include the product and the new quantity
+  body: JSON.stringify({userId:3, prodId, prodQty }), // Include the product and the new quantity
 })
 .then((response) => {
   if (!response.ok) {
