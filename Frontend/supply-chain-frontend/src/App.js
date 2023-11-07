@@ -6,6 +6,7 @@ import NavBar from "./components/NavBar/NavBar";
 import { Routes, Route } from 'react-router-dom';
 import Orders from "./components/Orders/Orders";
 import OrderDetails from "./components/Orders/OrderDetails";
+import OrderCompletion from "./components/Orders/OrderCompletion";
 
 function App() {
  
@@ -17,7 +18,8 @@ function App() {
       <Route path='/' element={<Products/>} />
       <Route path='/cart' element={<Cart/>  } />
       <Route path='/orders' element={<Orders/>  } />
-      <Route path='/orderDetails' element={<OrderDetails/>  } />
+      <Route path='/orderDetails/:orderId' element={<OrderDetails/>  } />
+      <Route path='/checkout' element={<OrderCompletion/>  } />
 
     </Routes>
  

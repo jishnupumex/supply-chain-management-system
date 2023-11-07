@@ -1,22 +1,29 @@
 import React, { useEffect } from "react";
 import CartItem from "./CartItem";
-import { setCart } from "../../redux/productSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems } from "../../constants/api";
+import { fetchCartItems, sendCartData, url } from "../../constants/api";
 import imageUrls from "../../constants/images";
+import { useNavigate } from "react-router-dom";
+
 
 const Cart = () => {
-  
+  const dispatch = useDispatch();
+  const navigate=useNavigate()
   useEffect(() => {
-    const apiUrl = "http://192.168.1.142:8082/user-cart/user/3";
+    const apiUrl = `${url}/user-cart/user/3`;
     fetchCartItems(apiUrl,dispatch)
   }, []);
-  const dispatch = useDispatch();
+  
   const cartData = useSelector((state) => state.details.cart);
   let sum = cartData.reduce(
     (total, item) => total + item?.prodQty * item?.prodPrice,
     0
   );
+  const checkOut=()=>{
+    const cartDataUrl = `${url}/user-cart`;
+   sendCartData(cartDataUrl,cartData) ;
+   navigate("/checkout")
+  }
 
   return (
     <div className="min-h-[73vh] pt-10">
@@ -26,7 +33,7 @@ const Cart = () => {
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             <div className="rounded-lg md:w-2/3">
               {cartData.map((item,index) => {
-                return <CartItem cartItem={item} image={imageUrls[index]}/>;
+                return <CartItem key={item.prodName} cartItem={item} image={imageUrls[index]}/>;
               })}
             </div>
             {/* Subtotal */}
@@ -47,7 +54,7 @@ const Cart = () => {
                   <p className="text-sm text-gray-700">including GST</p>
                 </div>
               </div>
-              <button className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+              <button onClick={checkOut} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
                 Check out
               </button>
             </div>

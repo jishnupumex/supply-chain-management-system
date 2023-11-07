@@ -1,17 +1,18 @@
 
 import { toast } from "react-toastify";
+import { url } from "../../constants/api";
 
 const Card = ({ name, desc, image, price, qty, prodId }) => {
 
-  const apiUrl = "http://192.168.1.142:8082/user-cart/add";
+  const apiUrl = `${url}/user-cart/add`;
   const addToCartMessage = () => {
     toast.success("Added to Cart !", {
       position: toast.POSITION.TOP_RIGHT,
       autoClose: 1000,
     });
   };
-  const words = desc.split(' ');
- const description = words.slice(0, 3).join(' ');
+  const words = desc?.split(' ');
+ const description = words?.slice(0, 3).join(' ');
 
   const addToCartFunction = () => {
   const   itemToAdd={prodId:prodId,userId:3}
@@ -55,14 +56,14 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
       </a>
       <div className="px-2 pb-2 md:px-5 md:pb-5">
         <a href="#">
-          <h5 className="h-14 overflow-hidden text-xs text-center sm:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="h-12 sm:h-14 overflow-hidden text-xs text-center sm:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
             {name}{" "}
           </h5>
           <h5 className="h-14 overflow-hidden text-xs text-center sm:text-base font-medium tracking-tight text-gray-900 dark:text-white">
             {description}{" "}
           </h5>
           {qty <= 0 ? (
-            <h5 className="absolute text-xs top-1 sm:text-sm font-medium tracking-tight text-red-800 dark:text-white">
+            <h5 className="hidden sm:absolute text-xs top-1 sm:text-sm font-medium tracking-tight text-red-800 dark:text-white">
               * Out of Stock{" "}
             </h5>
           ) : (

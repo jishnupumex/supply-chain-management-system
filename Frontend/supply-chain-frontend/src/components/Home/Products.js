@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setProducts } from '../../redux/productSlice'
+import { url } from '../../constants/api'
 
 
 const Products = () => {
@@ -19,7 +20,7 @@ const Products = () => {
   };
   const itemsToSkip = (currentPage-1)*12;
 
-  const apiUrl = "http://192.168.1.142:8082/inventories"
+  const apiUrl = `${url}/inventories`
   const dispatch = useDispatch()
   
   useEffect(() => {
@@ -32,6 +33,7 @@ const Products = () => {
         return response.json(); // Parse the response as JSON
       })
       .then((result) => {
+        console.log("products",result)
         dispatch(setProducts(result)); // Set the data in your component's state
       })
       .catch((error) => {
@@ -46,7 +48,7 @@ const Products = () => {
 <div className='min-h-[73vh] flex p-8 justify-center items-center w-[95%] lg:w-[90%] m-auto flex-wrap gap-4'>
         {
          data && data.slice(itemsToSkip,itemsToSkip+12).map((product,index)=>{
-            return <Card  key={product.prodId} name={product.prodName} desc={product.prodDesc} image={imageUrls[index]} price={product.prodPrice} qty={product.prodQty} prodId={product.prodId}/>
+            return <Card  key={product.prodId} name={product.prodName} desc={product?.prodDesc} image={imageUrls[index]} price={product.prodPrice} qty={product.prodQty} prodId={product.prodId}/>
           })
         }
     </div>

@@ -2,11 +2,11 @@ import React from "react";
 import './Cart.css'
 import { increaseQuantity,deleteItem,decreaseQuantity,resetCart } from '../../redux/productSlice'
 import { useDispatch } from "react-redux";
-import { changeQty } from "../../constants/api";
+import { changeQty, url } from "../../constants/api";
 
 const CartItem = ({cartItem,image}) => {
   const dispatch=useDispatch()
-  const apiUrl="http://192.168.1.142:8082/user-cart/update-prod"
+  const apiUrl=`${url}/user-cart/update-prod`
   const increament=(prodId)=>{
     changeQty(apiUrl,cartItem.prodId,1)
     dispatch(increaseQuantity({prodId}))

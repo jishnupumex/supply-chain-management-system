@@ -17,7 +17,6 @@ const NavBar = () => {
         <Link to="/orders">  <h6 className="text-xs sm:text-base hover:underline decoration-sky-600 underline-offset-2">
           Orders
         </h6></Link>
-        <h6 className="text-xs sm:text-base">Logout</h6>
       </div>
     </div>
   );
