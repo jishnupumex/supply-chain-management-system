@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import OrderTracker from './OrderTracker'
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchOrderDetails, url } from '../../constants/api';
+import { fetchOrderDetails, url, userUrl } from '../../constants/api';
 import imageUrls from '../../constants/images';
 
 const OrderDetails = () => {
@@ -10,8 +10,18 @@ const OrderDetails = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
   useEffect(() => {
-    const apiUrl = `${url}/user-order/get-order/${orderId}`;
-    fetchOrderDetails(apiUrl,dispatch)
+    const apiUrl = `${userUrl}/restapi/orders/${orderId}`;
+    fetchOrderDetails(apiUrl,dispatch);
+    // const intervalId = setInterval(() => {
+    //   fetchOrderDetails(apiUrl, dispatch);
+    // }, 15000); // 15 seconds in milliseconds
+
+    // // Clean up the interval when the component unmounts
+    // return () => {
+    //   clearInterval(intervalId);
+    // };
+
+    
   }, []);
   
   const orderDetails = useSelector((state) => state.details.orderDetails);
@@ -37,9 +47,9 @@ const OrderDetails = () => {
                 <div className="w-full flex flex-col justify-start items-start space-y-8">
                   <h3 className="text-xl dark:text-white xl:text-2xl font-semibold leading-6 text-gray-800">{orderDetails?.prodName}</h3>
                   <div className="flex justify-start items-start flex-col space-y-2">
-                    <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-gray-300">prodDesc: </span> {orderDetails?.prodDesc}</p>
-                    <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-gray-300">Type: </span> {orderDetails?.prodType}</p>
-                    <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-gray-300">Color: </span> Light Blue</p>
+                    <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-red-900">prodDesc: </span> {orderDetails?.prodDesc}</p>
+                    <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-red-900">Type: </span> {orderDetails?.prodType}</p>
+                    <p className="text-sm dark:text-white leading-none text-gray-800"><span className="dark:text-gray-400 text-red-900">Color: </span> Light Blue</p>
                   </div>
                 </div>
                 <div className="flex justify-between space-x-8 items-start w-full">

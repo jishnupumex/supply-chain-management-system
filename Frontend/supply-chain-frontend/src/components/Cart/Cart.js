@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems, sendCartData, url } from "../../constants/api";
+import { fetchCartItems, inventoryUrl, sendCartData } from "../../constants/api";
 import imageUrls from "../../constants/images";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,7 @@ const Cart = () => {
   const dispatch = useDispatch();
   const navigate=useNavigate()
   useEffect(() => {
-    const apiUrl = `${url}/user-cart/user/3`;
+    const apiUrl = `${inventoryUrl}/user-cart/user/3`;
     fetchCartItems(apiUrl,dispatch)
   }, []);
   
@@ -19,9 +19,11 @@ const Cart = () => {
     (total, item) => total + item?.prodQty * item?.prodPrice,
     0
   );
+  console.log("cartDta",cartData)
   const checkOut=()=>{
-    const cartDataUrl = `${url}/user-cart`;
-   sendCartData(cartDataUrl,cartData) ;
+  
+    const cartDataUrl = `http://192.168.1.154:8080/restapi/orders`;
+   sendCartData(cartDataUrl,cartData[0]) ;
    navigate("/checkout")
   }
 

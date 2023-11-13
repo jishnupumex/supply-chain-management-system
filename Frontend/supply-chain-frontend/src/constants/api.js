@@ -2,7 +2,8 @@ import { setCart, setOrderDetails, setOrders } from "../redux/productSlice";
 import { useNavigate } from "react-router-dom";
 
 
-export const url = "http://192.168.1.146:8082";
+export const inventoryUrl = "http://192.168.1.154:8082";
+export const userUrl = "http://192.168.1.154:8080";
 
 export const changeQty = (apiUrl, prodId, prodQty) => {
   fetch(apiUrl, {
@@ -86,13 +87,13 @@ export const sendCartData = (apiUrl,cartData) => {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ cartData }), // Include the product and the new quantity
+    body: JSON.stringify(cartData), 
   })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
       }
-      return response.json(); // Parse the response as JSON
+      return response; // Parse the response as JSON
     })
     .then((result) => {
       console.log("cart data submit", result);

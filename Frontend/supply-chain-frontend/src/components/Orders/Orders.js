@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import OrderCard from "./OrderCard";
-import { fetchOrder } from "../../constants/api";
+import { fetchOrder, userUrl } from "../../constants/api";
 import { useEffect } from "react";
 import imageUrls from "../../constants/images";
 import { url } from "../../constants/api";
@@ -9,7 +9,7 @@ const Orders = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    const apiUrl = `${url}/user-orders/get-orders`;
+    const apiUrl = `${userUrl}/restapi/orders`;
     fetchOrder(apiUrl,dispatch)
   }, []);
   const orderData = useSelector((state) => state.details.orders);

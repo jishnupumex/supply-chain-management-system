@@ -4,10 +4,10 @@ import imageUrls from '../../constants/images'
 import { useDispatch, useSelector } from 'react-redux'
 import Pagination from './Pagination'
 import { useEffect, useState } from 'react'
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setProducts } from '../../redux/productSlice'
-import { url } from '../../constants/api'
+import { inventoryUrl } from '../../constants/api'
 
 
 const Products = () => {
@@ -20,7 +20,7 @@ const Products = () => {
   };
   const itemsToSkip = (currentPage-1)*12;
 
-  const apiUrl = `${url}/inventories`
+  const apiUrl = `${inventoryUrl}/inventories`
   const dispatch = useDispatch()
   
   useEffect(() => {

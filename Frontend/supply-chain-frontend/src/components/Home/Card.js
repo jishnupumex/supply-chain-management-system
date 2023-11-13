@@ -1,10 +1,10 @@
 
 import { toast } from "react-toastify";
-import { url } from "../../constants/api";
+import { inventoryUrl} from "../../constants/api";
 
 const Card = ({ name, desc, image, price, qty, prodId }) => {
 
-  const apiUrl = `${url}/user-cart/add`;
+  const apiUrl = `${inventoryUrl}/user-cart/add`;
   const addToCartMessage = () => {
     toast.success("Added to Cart !", {
       position: toast.POSITION.TOP_RIGHT,
