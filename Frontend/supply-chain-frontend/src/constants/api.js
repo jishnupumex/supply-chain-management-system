@@ -1,9 +1,8 @@
 import { setCart, setOrderDetails, setOrders } from "../redux/productSlice";
 import { useNavigate } from "react-router-dom";
 
-
-export const inventoryUrl = "http://192.168.1.154:8082";
-export const userUrl = "http://192.168.1.154:8080";
+export const inventoryUrl = "http://localhost:8082";
+export const userUrl = "http://localhost:8080";
 
 export const changeQty = (apiUrl, prodId, prodQty) => {
   fetch(apiUrl, {
@@ -81,13 +80,13 @@ export const fetchOrderDetails = (apiUrl, dispatch) => {
     });
 };
 
-export const sendCartData = (apiUrl,cartData) => {
+export const sendCartData = (apiUrl, cartData) => {
   fetch(apiUrl, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(cartData), 
+    body: JSON.stringify(cartData),
   })
     .then((response) => {
       if (!response.ok) {

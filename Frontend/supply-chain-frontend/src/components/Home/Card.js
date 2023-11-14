@@ -1,9 +1,7 @@
-
 import { toast } from "react-toastify";
-import { inventoryUrl} from "../../constants/api";
+import { inventoryUrl } from "../../constants/api";
 
 const Card = ({ name, desc, image, price, qty, prodId }) => {
-
   const apiUrl = `${inventoryUrl}/user-cart/add`;
   const addToCartMessage = () => {
     toast.success("Added to Cart !", {
@@ -11,18 +9,18 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
       autoClose: 1000,
     });
   };
-  const words = desc?.split(' ');
- const description = words?.slice(0, 3).join(' ');
+  const words = desc?.split(" ");
+  const description = words?.slice(0, 3).join(" ");
 
   const addToCartFunction = () => {
-  const   itemToAdd={prodId:prodId,userId:3}
+    const itemToAdd = { prodId: prodId, userId: 3 };
     fetch(apiUrl, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(itemToAdd), // Include the item you want to add in the request body
-      })
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(itemToAdd), // Include the item you want to add in the request body
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -46,24 +44,22 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
       .catch((error) => {
         console.error("Error:", error);
       });
-    
-    
   };
   return (
-    <div className="w-[40%] md:w-[23%] relative max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+    <div className="w-[40%] md:w-[23%] relative max-w-sm bg-white border border-gray-200 rounded-lg shadow  ">
       <a href="#">
         <img className="md:p-8 rounded-t-lg" src={image} />
       </a>
       <div className="px-2 pb-2 md:px-5 md:pb-5">
         <a href="#">
-          <h5 className="h-12 sm:h-14 overflow-hidden text-xs text-center sm:text-lg font-bold tracking-tight text-gray-900 dark:text-white">
+          <h5 className="h-12 sm:h-14 overflow-hidden text-xs text-center sm:text-lg font-bold tracking-tight text-gray-900 ">
             {name}{" "}
           </h5>
-          <h5 className="h-14 overflow-hidden text-xs text-center sm:text-base font-medium tracking-tight text-gray-900 dark:text-white">
+          <h5 className="h-14 overflow-hidden text-xs text-center sm:text-base font-medium tracking-tight text-gray-900 ">
             {description}{" "}
           </h5>
           {qty <= 0 ? (
-            <h5 className="hidden sm:absolute text-xs top-1 sm:text-sm font-medium tracking-tight text-red-800 dark:text-white">
+            <h5 className="hidden sm:absolute text-xs top-1 sm:text-sm font-medium tracking-tight text-red-800 ">
               * Out of Stock{" "}
             </h5>
           ) : (
@@ -124,7 +120,12 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
           <div className="text-sm sm:text-xl font-bold text-gray-900 dark:text-white">
             &#8377; {price}
           </div>
-          <div className="mb-1 sm:flex justify-center items-center gap-4 text-xs mt-2">
+          <div className="flex items-center justify-center ">
+            <p className="text-sm sm:text-lg font-mono text-center text-emerald-500">
+              Stock Available : {qty}
+            </p>
+          </div>
+          <div className="mb-1 sm:flex justify-center items-center gap-6 text-xs mt-2">
             {/* <div href="#" className="mb-1 sm:mb-0 text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal sm:font-medium rounded-lg  px-1 py-1 sm:px-1 sm:py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy Now</div> */}
             {qty > 0 ? (
               <a

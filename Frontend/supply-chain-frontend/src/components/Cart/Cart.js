@@ -1,31 +1,34 @@
 import React, { useEffect } from "react";
 import CartItem from "./CartItem";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchCartItems, inventoryUrl, sendCartData } from "../../constants/api";
+import {
+  fetchCartItems,
+  inventoryUrl,
+  sendCartData,
+  userUrl,
+} from "../../constants/api";
 import imageUrls from "../../constants/images";
 import { useNavigate } from "react-router-dom";
 
-
 const Cart = () => {
   const dispatch = useDispatch();
-  const navigate=useNavigate()
+  const navigate = useNavigate();
   useEffect(() => {
     const apiUrl = `${inventoryUrl}/user-cart/user/3`;
-    fetchCartItems(apiUrl,dispatch)
+    fetchCartItems(apiUrl, dispatch);
   }, []);
-  
+
   const cartData = useSelector((state) => state.details.cart);
   let sum = cartData.reduce(
     (total, item) => total + item?.prodQty * item?.prodPrice,
     0
   );
-  console.log("cartDta",cartData)
-  const checkOut=()=>{
-  
-    const cartDataUrl = `http://192.168.1.154:8080/restapi/orders`;
-   sendCartData(cartDataUrl,cartData[0]) ;
-   navigate("/checkout")
-  }
+  console.log("cartDta", cartData);
+  const checkOut = () => {
+    const cartDataUrl = `${userUrl}/restapi/orders`;
+    sendCartData(cartDataUrl, cartData[0]);
+    navigate("/checkout");
+  };
 
   return (
     <div className="min-h-[73vh] pt-10">
@@ -34,8 +37,14 @@ const Cart = () => {
           <h1 className="mb-10 text-center text-2xl font-bold">Cart Items</h1>
           <div className="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
             <div className="rounded-lg md:w-2/3">
-              {cartData.map((item,index) => {
-                return <CartItem key={item.prodName} cartItem={item} image={imageUrls[index]}/>;
+              {cartData.map((item, index) => {
+                return (
+                  <CartItem
+                    key={item.prodName}
+                    cartItem={item}
+                    image={imageUrls[index]}
+                  />
+                );
               })}
             </div>
             {/* Subtotal */}
@@ -56,7 +65,10 @@ const Cart = () => {
                   <p className="text-sm text-gray-700">including GST</p>
                 </div>
               </div>
-              <button onClick={checkOut} className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600">
+              <button
+                onClick={checkOut}
+                className="mt-6 w-full rounded-md bg-blue-500 py-1.5 font-medium text-blue-50 hover:bg-blue-600"
+              >
                 Check out
               </button>
             </div>
