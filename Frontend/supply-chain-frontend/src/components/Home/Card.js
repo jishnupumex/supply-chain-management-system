@@ -6,7 +6,7 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
   const addToCartMessage = () => {
     toast.success("Added to Cart !", {
       position: toast.POSITION.TOP_RIGHT,
-      autoClose: 1000,
+      autoClose: 500,
     });
   };
   const words = desc?.split(" ");
@@ -29,16 +29,6 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
       })
       .then((result) => {
         console.log("data", result);
-        // dispatch(
-        //     addToCart({
-        //       name,
-        //       desc,
-        //       image,
-        //       price,
-        //       quantity: 1,
-        //       prodId,
-        //     })
-        //   );
         addToCartMessage();
       })
       .catch((error) => {
@@ -48,7 +38,7 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
   return (
     <div className="w-[40%] md:w-[23%] relative max-w-sm bg-white border border-gray-200 rounded-lg shadow  ">
       <a href="#">
-        <img className="md:p-8 rounded-t-lg" src={image} />
+        <img className="md:p-8 w-[20vw] h-[27vh] rounded-t-lg" src={image} />
       </a>
       <div className="px-2 pb-2 md:px-5 md:pb-5">
         <a href="#">
@@ -127,7 +117,7 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
           </div>
           <div className="mb-1 sm:flex justify-center items-center gap-6 text-xs mt-2">
             {/* <div href="#" className="mb-1 sm:mb-0 text-white bg-blue-700 hover:bg-blue-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal sm:font-medium rounded-lg  px-1 py-1 sm:px-1 sm:py-1.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Buy Now</div> */}
-            {qty > 0 ? (
+            {
               <a
                 href="#"
                 onClick={addToCartFunction}
@@ -135,14 +125,7 @@ const Card = ({ name, desc, image, price, qty, prodId }) => {
               >
                 Add to cart
               </a>
-            ) : (
-              <a
-                href="#"
-                className="text-white bg-red-700 hover:bg-red-900 focus:ring-4 focus:outline-none focus:ring-blue-300 font-normal sm:font-medium rounded-lg  px-1.5 py-1.5 sm:px-2 sm:py-2 text-center"
-              >
-                Make Order
-              </a>
-            )}
+            }
           </div>
         </div>
       </div>

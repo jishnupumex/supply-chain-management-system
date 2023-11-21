@@ -11,7 +11,7 @@ import { changeQty, inventoryUrl } from "../../constants/api";
 
 const CartItem = ({ cartItem, image }) => {
   const dispatch = useDispatch();
-  const apiUrl = `${inventoryUrl}/user-cart/update-prod`;
+  const apiUrl = `${inventoryUrl}/user-cart/update`;
   const increament = (prodId) => {
     changeQty(apiUrl, cartItem.prodId, 1);
     dispatch(increaseQuantity({ prodId }));

@@ -4,23 +4,40 @@ import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchOrderDetails, url, userUrl } from "../../constants/api";
 import imageUrls from "../../constants/images";
+import { Icons } from "react-toastify";
+import { AiOutlineDownload } from "react-icons/ai";
 
 const OrderDetails = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const apiUrl = `${userUrl}/restapi/orders/${orderId}`;
     fetchOrderDetails(apiUrl, dispatch);
-    // const intervalId = setInterval(() => {
-    //   fetchOrderDetails(apiUrl, dispatch);
-    // }, 15000); // 15 seconds in milliseconds
-
-    // // Clean up the interval when the component unmounts
-    // return () => {
-    //   clearInterval(intervalId);
-    // };
   }, []);
 
+  function downloadInvoice() {
+    console.log("Inside download invoice");
+    fetch("http://localhost:8084/logistics/invoice")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        response.blob().then((blob) => {
+          // Creating new object of PDF file
+          const fileURL = window.URL.createObjectURL(blob);
+
+          // Setting various property values
+          let alink = document.createElement("a");
+          alink.href = fileURL;
+          alink.download = "Invoice.pdf";
+          alink.click();
+        });
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  }
   const orderDetails = useSelector((state) => state.details.orderDetails);
 
   return (
@@ -40,13 +57,13 @@ const OrderDetails = () => {
               <div className="pb-4 md:pb-8 w-full md:w-40">
                 <img
                   className="w-full hidden md:block"
-                  src={imageUrls[1]}
-                  alt="dress"
+                  src={orderDetails?.prodImage}
+                  alt="product"
                 />
                 <img
                   className="w-full md:hidden"
-                  src="https://i.ibb.co/L039qbN/Rectangle-10.png"
-                  alt="dress"
+                  src={orderDetails?.prodImage}
+                  alt="product"
                 />
               </div>
               <div className="border-b border-gray-200 md:flex-row flex-col flex justify-between items-start w-full pb-8 space-y-4 md:space-y-0">
@@ -82,6 +99,7 @@ const OrderDetails = () => {
                   <p className="text-base  xl:text-lg font-semibold leading-6 text-gray-800">
                     &#8377; {orderDetails?.totalPrice}
                   </p>
+                  <AiOutlineDownload onClick={downloadInvoice} />
                 </div>
               </div>
             </div>

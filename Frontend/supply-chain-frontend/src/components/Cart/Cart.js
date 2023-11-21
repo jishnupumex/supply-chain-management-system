@@ -42,7 +42,7 @@ const Cart = () => {
                   <CartItem
                     key={item.prodName}
                     cartItem={item}
-                    image={imageUrls[index]}
+                    image={item?.prodImage}
                   />
                 );
               })}
